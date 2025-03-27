@@ -1,105 +1,78 @@
-# DesignPrinciple – Demonstration des DRY-Prinzips
-
-## Einleitung
-
-Das Projekt **DesignPrinciple** demonstriert das DRY-Prinzip ("Don't Repeat Yourself") anhand eines praktischen Beispiels: eines Einkaufswagen-Rechners. Es werden zwei Implementierungen vorgestellt, die beide denselben Output erzeugen.
-- Im **Bad Example** wird das Prinzip durch mehrfach wiederholten Code verletzt.
-- Im **Good Example** wird der DRY-Ansatz verfolgt, was zu wiederverwendbarem, wartbarem und erweiterbarem Code führt.
-
-## Zweck des Projekts
-
-- **Problemstellung:**  
-  Wiederholter Code kann zu Fehlern, Inkonsistenzen und einem erhöhten Wartungsaufwand führen.
-
-- **Lösung:**  
-  Durch die Anwendung des DRY-Prinzips wird Wiederverwendbarkeit und eine klare Struktur gefördert, was zu einem robusteren und leichter pflegbaren Code führt.
-
-- **Lernziel:**  
-  Entwickler sollen den Nutzen und die praktische Anwendung von Best Practices in der Softwareentwicklung kennenlernen.
-
-## Nutzen des Projekts
-
-- **Bildungszweck:**  
-  Das Projekt liefert ein anschauliches Beispiel, um die Bedeutung von sauberem und wartbarem Code zu demonstrieren.
-
-- **Best Practices:**  
-  Es zeigt, wie durch den Einsatz von Entwurfsmustern (z. B. Singleton) redundanter Code vermieden werden kann.
-
-- **Fehlerminimierung:**  
-  Die zentrale Logik reduziert potenzielle Fehlerquellen.
-
-## Support
-
-- **Hilfe & Fragen:**  
-  Bei Problemen oder Fragen wenden Sie sich bei Nemanja.
-
-  - **Allgemeine Fragen:**  
-  Bei Allgemeinen Fragen können Sie sich auch bei Herr Gebert wenden beispielsweise, was DRY bedeutet oder anderen Theorie Fragen.
-
-## Wartung und Verantwortlichkeit
-
-Dieses Projekt wird von Nemanja gepflegt. Für Rückfragen oder weiterführende Informationen steht der Maintainer(Nemanja) zur Verfügung.
-
-## Verwendung und Codebeispiele
-Das Ziel beider Implementierungen ist es, den Einkaufswagen inklusive Zwischensummen pro Artikel, Gesamtsumme, Steuerbetrag (7%) und Endbetrag zu berechnen und auszugeben.
-
+# README
+ 
+Dieses Projekt erläutert das zugrunde liegende Designprinzip sowie das verwendete Design Pattern anhand von zwei Implementierungen – einem "Bad"-Beispiel und einem "Good"-Beispiel. Anhand dieser Beispiele wird aufgezeigt, wie das DRY-Prinzip (Don't Repeat Yourself) eingehalten bzw. verletzt wird und warum das Singleton Pattern eine passende Lösung darstellt.
+ 
+---
+ 
+## 1. Designprinzip: DRY (Don't Repeat Yourself)
+ 
+**Was ist DRY?**  
+Das DRY-Prinzip besagt, dass sich Logik, Informationen oder Daten im Code nicht wiederholen sollen. Jede einzelne Wissenseinheit sollte nur einmal vorhanden sein. Dies fördert:
+ 
+- **Wartbarkeit:** Änderungen müssen nur an einer Stelle vorgenommen werden.
+- **Konsistenz:** Einheitliche Logik reduziert Inkonsistenzen.
+- **Fehlerreduktion:** Weniger duplizierter Code mindert das Risiko von Fehlern.
+- **Erweiterbarkeit:** Neue Funktionalitäten können einfacher integriert werden, da vorhandene Logik wiederverwendet wird.
+ 
+---
+ 
+## 2. Verwendetes Design Pattern: Singleton
+ 
+**Was ist das Singleton Pattern?**  
+Das Singleton Pattern stellt sicher, dass von einer Klasse nur eine einzige Instanz existiert und bietet einen globalen Zugriffspunkt auf diese Instanz. Dies ist besonders nützlich, wenn zentralisierte Logik oder gemeinsame Ressourcen benötigt werden.
+ 
+**Warum wurde das Singleton Pattern gewählt?**  
+Im "Good"-Beispiel wird das Singleton Pattern in der Klasse `CartCalculator` implementiert. Dies bringt folgende Vorteile mit sich:
+ 
+- **Zentralisierte Logik:** Alle Berechnungen und Ausgaben des Einkaufswagens sind in einer einzigen Klasse zusammengefasst.
+- **Einheitlichkeit:** Es wird sichergestellt, dass immer dieselbe Instanz verwendet wird, was inkonsistente Zustände verhindert.
+- **Ressourcenschonung:** Keine unnötigen Mehrfachinstanzen werden erstellt, was den Speicherverbrauch reduziert.
+ 
+---
+ 
+## 3. Analyse der Code-Beispiele
+ 
+### Good Example
+ 
+- **Einhaltung des DRY-Prinzips:**  
+  - Die `CartCalculator`-Klasse kapselt die gesamte Logik zur Berechnung und Ausgabe des Warenkorbs.
+  - Mit Hilfe von Arrays und einer Schleife wird für alle Artikel eine einheitliche Berechnung durchgeführt.
+  - Änderungen an der Berechnungslogik müssen nur in der Methode `calculateAndPrintCart` vorgenommen werden, was den Code wartbarer und erweiterbarer macht.
+ 
+- **Singleton Pattern:**  
+  - Durch die private Konstruktor-Methode und die `getInstance()`-Methode wird sichergestellt, dass nur eine Instanz der `CartCalculator`-Klasse existiert.
+  - Diese zentrale Instanz wird im gesamten Programm genutzt, um Konsistenz zu gewährleisten.
+ 
 ### Bad Example
+ 
+- **Verletzung des DRY-Prinzips:**  
+  - Der Code berechnet und gibt für jeden Artikel einzeln den Preis, die Menge und die Zwischensumme aus.  
+  - Wiederholte Codeabschnitte für jeden Artikel führen zu unnötiger Redundanz.
+  - Jede Änderung in der Berechnungslogik müsste an mehreren Stellen vorgenommen werden, was das Risiko von Fehlern und Inkonsistenzen erhöht.
+ 
+- **Fehlende zentrale Logik:**  
+  - Es existiert keine zentrale Methode oder Klasse, die die Einkaufswagenlogik zusammenfasst.
+  - Die Berechnungen und Ausgaben sind im Hauptprogramm dupliziert, was die Lesbarkeit und Wartbarkeit verschlechtert.
+ 
+---
+ 
+## 4. Zusammenfassung
+ 
+- **DRY-Prinzip:**  
+  Das DRY-Prinzip ist essenziell, um redundanten Code zu vermeiden. Dies führt zu einer besseren Wartbarkeit, geringeren Fehleranfälligkeit und einer insgesamt konsistenteren Codebasis. Im "Good"-Beispiel wird dieses Prinzip durch die zentrale Methode `calculateAndPrintCart` eingehalten, während im "Bad"-Beispiel redundante Codeabschnitte zu sehen sind.
+ 
+- **Singleton Pattern:**  
+  Das Singleton Pattern stellt sicher, dass es nur eine Instanz des Warenkorb-Rechners gibt, was eine konsistente und zentrale Logik ermöglicht. Dies reduziert den Overhead, mehrere Instanzen zu verwalten, und sorgt für eine einheitliche Verarbeitung der Einkaufswagenberechnung.
+ 
+- **Vorteile der guten Umsetzung:**  
+  - **Wiederverwendbarkeit:** Änderungen erfolgen zentral.
+  - **Lesbarkeit und Wartbarkeit:** Eine zentrale Logik ist leichter zu verstehen und zu pflegen.
+  - **Konsistenz:** Ein einziger Zugriffspunkt minimiert das Risiko unterschiedlicher Zustände.
+ 
+Dieses README zeigt, wie die Einhaltung des DRY-Prinzips und die Verwendung des Singleton Patterns zu einem saubereren, wartbareren und konsistenteren Code führen. Die "Good"-Implementierung demonstriert klar, wie durch Reduktion von Wiederholungen und durch die zentrale Steuerung über ein Singleton die Softwarequalität verbessert wird.
 
-Im Bad Example wird der Code für jeden Artikel einzeln geschrieben. Dadurch kommt es zu redundanten Codezeilen, wie im folgenden Auszug zu sehen:
+---
+ 
+## 5. Github
 
-
-```// Auszug aus BadMain.java
-String item1 = "Apfel";
-double price1 = 0.99;
-int quantity1 = 3;
-double subtotal1 = price1 * quantity1;
-System.out.println("Artikel: " + item1 + " - Preis: " + price1
-+ " - Menge: " + quantity1 + " => Zwischensumme: " + subtotal1);
-
-// Es folgen ähnliche Codeblöcke für Banane, Milch und Brot.
-```
-## Good Example
-Im Good Example wird das DRY-Prinzip umgesetzt, indem die Logik zentral in einer Methode zusammengefasst wird. Dadurch wird der Code wiederverwendbar und leicht wartbar. Zum Beispiel wird in der GoodMain-Klasse der Einkaufswagen über eine Singleton-Instanz der CartCalculator-Klasse berechnet:
-
-```
-// Auszug aus GoodMain.java
-String[] items = {"Apfel", "Banane", "Milch", "Brot"};
-double[] prices = {0.99, 0.59, 1.29, 2.49};
-int[] quantities = {3, 5, 2, 1};
-double taxRate = 0.07;
-
-// Singleton-Instanz holen und Einkaufswagen berechnen
-CartCalculator calculator = CartCalculator.getInstance();
-calculator.calculateAndPrintCart(items, prices, quantities, taxRate);
-```
-Ein zentraler Bestandteil des DRY-Ansatzes ist die Methode calculateAndPrintCart in der CartCalculator-Klasse:
-
-```
-// Auszug aus CartCalculator.java
-public void calculateAndPrintCart(String[] items, double[] prices, int[] quantities, double taxRate) {
-double sum = 0.0;
-for (int i = 0; i < items.length; i++) {
-double subtotal = prices[i] * quantities[i];
-sum += subtotal;
-System.out.println("Artikel: " + items[i] + " - Preis: " + prices[i]
-+ " - Menge: " + quantities[i] + " => Zwischensumme: " + subtotal);
-}
-double taxAmount = sum * taxRate;
-double total = sum + taxAmount;
-System.out.println("Gesamtsumme: " + sum);
-System.out.println("Umsatzsteuer (7%): " + taxAmount);
-System.out.println("Endbetrag: " + total);
-}
-```
-Diese zentrale Methode reduziert Wiederholungen und ermöglicht eine einfache Erweiterung oder Änderung der Berechnungslogik.
-
-## Design Prinzip: DRY (Don't Repeat Yourself)
-### Bad Example:
-Wiederholt den Code für jeden Artikel, was zu erhöhter Fehleranfälligkeit und Wartungsaufwand führt.
-
-### Good Example:
-Konsolidiert die Logik in einer zentralen, wiederverwendbaren Methode und nutzt das Singleton-Muster, um die Instanzierung der Berechnungslogik zu kontrollieren.
-Die Verwendung von Arrays und Schleifen (wie in calculateAndPrintCart) vermeidet unnötige Wiederholungen.
-
-## Fazit
-Das Projekt DesignPrinciple verdeutlicht, wie wichtig es ist, Code-Duplikationen zu vermeiden und stattdessen wiederverwendbare Komponenten zu erstellen. Der Vergleich zwischen dem Bad Example und dem Good Example zeigt, dass die Einhaltung von Design-Prinzipien wie DRY nicht nur die Lesbarkeit, sondern auch die Wartbarkeit und Erweiterbarkeit des Codes signifikant verbessert.
+git clone https://github.com/bbwNemanja/DesingPattern.git
